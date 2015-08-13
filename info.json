@@ -3,7 +3,7 @@
 	"author":"Shirkit",
 	"version":"0.1.0",
 	"title":"Personal Roboport Fix",
-	"homepage":"http://localhost/",
-	"description":"Pocket Bots!",
+	"homepage":"https://github.com/Shirkit/PersonalRoboportFix",
+	"description":"Fixed the annoying behaviour of priority on personal robots over the netowrk's!",
 	"dependencies": ["base >= 0.12.3"]
 }
