@@ -32,7 +32,7 @@ You [u]CAN'T[/u] have more than 10 construction robots on all of your inventory 
 
 It will always try to put in the first slot available, so if you don't want to get crazy, just place your personal roboport in the first 4 slots on the top left. Also, it stores the charged energy, so you don't lose it.
 
-For now, it just supports vanilla Roboports and Personal Roboports. Planned to support modded roboports and personal roboports soon.
+For now, it just supports vanilla Roboports and Personal Roboports. Planned to support modded roboports and personal roboports soon. And it only supports 1 personal roboport on your armor.
 
 In theory it should be multiplayer compatible, but I haven't test it.[/spoiler]
 
