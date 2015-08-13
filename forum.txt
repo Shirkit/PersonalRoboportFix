@@ -1,0 +1,44 @@
+[size=150]Mod-Info-Header[/size]
+    [list]
+    [*] Name: PersonalRoboportFix
+    [*] Version: 0.1.0
+    [*] Factorio-Version: 0.12.3
+    [*] Description: Removes the annoying behaviour of having the personal robots having priority over the network's construction robots.
+    [*] License: [url=http://www.wtfpl.net/about/]WTF Public License [img]http://www.wtfpl.net/wp-content/uploads/2012/12/wtfpl-badge-2.png[/img][/url]
+    [*] Release: 2015-08-13
+    [*] Download-Url: [url=https://github.com/Shirkit/PersonalRoboportFix/releases/tag/0.1.0]Download[/url]
+    [*] Website: [url]https://github.com/Shirkit/PersonalRoboportFix[/url]
+    [*] Dependencies: None.
+    [*] Category:  Helper, Fix
+    [*] Tags: Robots, Construction Robots, Roboports
+    [/list]
+    [spoiler=License]DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+                    Version 2, December 2004
+
+ Copyright (C) 2004 Sam Hocevar <sam@hocevar.net>
+
+ Everyone is permitted to copy and distribute verbatim or modified
+ copies of this license document, and changing it is allowed as long
+ as the name is changed.
+
+            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+
+  0. You just DO WHAT THE FUCK YOU WANT TO.[/spoiler]
+
+    [spoiler=Long description]Disables the personal roboport you are wearing when you go inside your construction network.
+
+You [u]CAN'T[/u] have more than 10 construction robots on all of your inventory (quickbar and main), or this mod [u]WILL FAIL[/u].
+
+It will always try to put in the first slot available, so if you don't want to get crazy, just place your personal roboport in the first 4 slots on the top left. Also, it stores the charged energy, so you don't lose it.
+
+For now, it just supports vanilla Roboports and Personal Roboports. Planned to support modded roboports and personal roboports soon.
+
+In theory it should be multiplayer compatible, but I haven't test it.[/spoiler]
+
+    [spoiler=Pictures]See it in action here: https://youtu.be/S1QL-FNGdIQ
+
+
+[img]http://i.imgur.com/fYT0f6r.png[/img][/spoiler]
+
+    [spoiler=Version history]Version#0.1.0 (2015-08.13): Initial Release[/spoiler]
