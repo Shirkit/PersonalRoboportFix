@@ -1,0 +1,9 @@
+{
+	"name":"PersonalRoboportFix",
+	"author":"Shirkit",
+	"version":"0.1.0",
+	"title":"Personal Roboport Fix",
+	"homepage":"http://localhost/",
+	"description":"Pocket Bots!",
+	"dependencies": ["base >= 0.12.3"]
+}
