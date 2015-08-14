@@ -1,7 +1,7 @@
 {
 	"name":"PersonalRoboportFix",
 	"author":"Shirkit",
-	"version":"0.1.0",
+	"version":"0.2.0",
 	"title":"Personal Roboport Fix",
 	"homepage":"https://github.com/Shirkit/PersonalRoboportFix",
 	"description":"Fixed the annoying behaviour of priority on personal robots over the netowrk's!",
