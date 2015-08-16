@@ -13,7 +13,7 @@ function initContent()
 	end
 	
 	for i,player in ipairs(game.players) do
-		if global.roboports[player.name] == nil then
+		if global.roboports[player.name] == nil or global.roboports[player.name] == false then
 			global.roboports[player.name] = { modules = { } }
 		end
 	end
