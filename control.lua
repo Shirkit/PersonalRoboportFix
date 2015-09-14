@@ -96,20 +96,24 @@ function countRobots(player)
 	local main = player.get_inventory(defines.inventory.player_main)
 	local count = 0
 	
-	for i=1,#quick do
-		if quick[i] ~= nil and quick[i].valid_for_read then
-			if quick[i].name == "construction-robot" then
-				count = count + quick[i].count
+	function checkRobot(stack)
+		if stack ~= nil and stack.valid_for_read then
+			if stack.name == "construction-robot" then
+				count = count + stack.count
+			else
+				if stack.prototype ~= nil and stack.prototype.place_result ~= nil and stack.prototype.place_result.type == "construction-robot" then
+					count = count + stack.count
+				end
 			end
 		end
 	end
 	
+	for i=1,#quick do
+		checkRobot(quick[i])
+	end
+	
 	for i=1,#main do
-		if main[i] ~= nil and main[i].valid_for_read then
-			if main[i].name == "construction-robot" then
-				count = count + main[i].count
-			end
-		end
+		checkRobot(main[i])
 	end
 	
 	return count
