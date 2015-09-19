@@ -41,93 +41,71 @@ global.roboports[string]
 
 ]]--
 
-
 game.on_event(defines.events.on_tick, function(event)
 
 	if event.tick %TICKS == 0 then
 	
 		for i,player in ipairs(game.players) do
 			
-			local result = getPersonalRoboport(player)
-			if result ~= nil then
+			if player.controller_type == defines.controllers.character then
+			
+				local playerNetwork = nil
+				local playerCell = nil
+				for k,network in ipairs(player.force.logistic_networks[player.surface.name]) do
+					local cell = network.find_cell_closest_to(player.position)
+					if cell ~= nil and cell.mobile and cell.owner == player.character then
+						playerNetwork = network
+						playerCell = cell
+					end
+				end
 				
-				local surface = game.get_surface(1)
-				local roboport = result.equips
-				local grid = getArmorGrid(player)
-				local i = 1
-				
-				while roboport[i] ~= nil do
-					if roboport[i].name == "personal-roboport-equipment-off" then
-						-- roboport is turned off
-						if not isInRoboportRange(surface, player.position) then
-							local prevEnergy = roboport[i].energy
-							local pos = roboport[i].position
-							-- Swap items and properties
-							grid.take( {position = pos} )
-							local put = grid.put({name = global.roboports[player.name].modules[i], position = pos})
-							put.energy = prevEnergy
-						end
-					else
-						-- roboport is turned on
-						if (countRobots(player) >= result.bots) then
-							if (isInRoboportRange(surface, player.position)) then
+				if playerNetwork ~= nil then
+					-- This passes even if all equipments are disabled
+										
+					local roboport = getPersonalRoboport(player)
+					local grid = getArmorGrid(player)
+					local inRange = isInRoboportRange(player)
+					
+					while roboport[i] ~= nil do
+						if roboport[i].name == "personal-roboport-equipment-off" then
+							-- roboport is turned off
+							if not inRange then
 								local prevEnergy = roboport[i].energy
 								local pos = roboport[i].position
 								-- Swap items and properties
-								global.roboports[player.name].modules[i] = grid.take( {position = pos} ).name
-								local put = grid.put( {name = "personal-roboport-equipment-off", position = pos} )
+								grid.take( {position = pos} )
+								local put = grid.put({name = global.roboports[player.name].modules[i], position = pos})
 								put.energy = prevEnergy
 							end
+						else
+							-- roboport is turned on
+							if playerCell.stationed_construction_robot_count == playerNetwork.all_construction_robots then
+								if inRange then
+									local prevEnergy = roboport[i].energy
+									local pos = roboport[i].position
+									-- Swap items and properties
+									global.roboports[player.name].modules[i] = grid.take( {position = pos} ).name
+									local put = grid.put( {name = "personal-roboport-equipment-off", position = pos} )
+									put.energy = prevEnergy
+								end
+							end
 						end
-					end
-					
-					i = i + 1
+						
+						i = i + 1
+					end -- end while
 				end
 			end
-		end
+		end -- end for
 	end
 	
 end)
 
--- Returns the number of robots in the player's main inventory and quickbar
-function countRobots(player)
-
-	local quick = player.get_inventory(defines.inventory.player_quickbar)
-	local main = player.get_inventory(defines.inventory.player_main)
-	local count = 0
-	
-	for i=1,#quick do
-		if quick[i] ~= nil and quick[i].valid_for_read then
-			if quick[i].name == "construction-robot" then
-				count = count + quick[i].count
-			end
-		end
-	end
-	
-	for i=1,#main do
-		if main[i] ~= nil and main[i].valid_for_read then
-			if main[i].name == "construction-robot" then
-				count = count + main[i].count
-			end
-		end
-	end
-	
-	return count
-end
-
-
 --[[
- Returns a struct or nil if not found
-{
-	count = number of roboports
-	equips[] = array of Lua/Equipment
-	bots = maximum number of bots
- }
+ Returns a list of equipments or nil if not found
  ]]--
 function getPersonalRoboport(player)
 	local grid = getArmorGrid(player)
 	local i = 1
-	local bot = 0
 	local arr = { }
 	
 	if grid ~= nil then
@@ -135,7 +113,6 @@ function getPersonalRoboport(player)
 		for v,k in ipairs(equips) do
 			if (k.type == "roboport-equipment") then
 				arr[i] = k
-				bot = bot + 10
 				i = i + 1
 			end
 		end
@@ -144,7 +121,7 @@ function getPersonalRoboport(player)
 	if i == 1 then
 		return nil
 	else
-		return { count = i - 1, bots = bot, equips = arr }
+		return arr
 	end
 end
 
@@ -158,23 +135,27 @@ function getArmorGrid(player)
 end
 
 -- Checks if player is inside a construction network
-function isInRoboportRange(surface,position)
+function isInRoboportRange(player)
 	--Find Roboports
-	local entities = surface.find_entities_filtered{area = {{position.x - 51, position.y - 51}, {position.x + 51, position.y + 51}}, type = "roboport"}
-	for i, entity in ipairs(entities) do
-		if entity ~= nil and entity.valid then
-			return true
+	
+	for k,network in ipairs(player.force.logistic_networks[player.surface.name]) do
+		local mainCell = network.find_cell_closest_to(player.position)
+		if not mainCell.mobile then
+			-- We just ignore the personal roboport
+			return mainCell.is_in_construction_range(player.position)
 		end
 	end
+	
 	return false
 end
 
--- Just here for debug
-function debugLog(message)
+function debugLog(id,message)
 	for i,player in ipairs(game.players) do
 		if true then -- set for debug
-			if type(message) ~= "table" then
-				player.print(game.tick .. ": " .. tostring(message))
+			if (message ~= nil and type(message) ~= "table") then
+				player.print(game.tick .. ": " .. id .. "-"  .. tostring(message))
+			elseif (message == nil and type(id) ~= "table") then
+				player.print(game.tick .. ": " .. tostring(id))
 			end
 		end
 	end

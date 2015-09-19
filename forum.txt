@@ -28,11 +28,9 @@
 
     [spoiler=Long description]Disables the personal roboport you are wearing when you go inside your construction network.
 
-You [u]CAN'T[/u] have more than the limit of construction robots on all of your inventory (quickbar and main), or this mod [u]WILL NOT WORK[/u]. For example, if you have 2 Personal Roboports, you can't have more than 20 robots on your inventory.
-
 It stores the charged energy, so you don't lose it.
 
-For now, it just supports vanilla Roboports and Personal Roboports. Planned to support modded roboports and personal roboports soon.
+It should support both vanilla and modded Roboports, Robots and Personal Robopots.
 
 In theory it should be multiplayer compatible, but I haven't test it.[/spoiler]
 
@@ -42,6 +40,10 @@ In theory it should be multiplayer compatible, but I haven't test it.[/spoiler]
 [img]http://i.imgur.com/fYT0f6r.png[/img][/spoiler]
 
     [spoiler=Version history]Version#0.1.0 (2015-08.13): Initial Release
-	Version#0.2.0 (2015-08.14): Added support for multiple personal roboports
+Version#0.2.0 (2015-08.14): Added support for multiple personal roboports
 Fixed crash when removing armor
 Version#0.2.1 (2015-08.16): Fixed a bug caused by migration from 0.1.0 to 0.2.0[/spoiler]
+Version#0.3.0 (2015-09.19): Fixed crash when using the Test Mode mod in God Mode.
+Fixed crash in multiplayer when a player dies.
+Added support for modded robots, modded roboports and modded personal roboports.
+Fixed behaviour that would not allow palyers to have more than the limit of robots in their inventories.
