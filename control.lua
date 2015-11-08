@@ -7,6 +7,16 @@ TICKS = 20 -- Every X ticks the mod will run an update. The higher X is, the les
 require "defines"
 require "util"
 
+script.on_init(function(event)
+
+	initContent()
+end)
+
+script.on_event(defines.events.on_player_created, function(event)
+	
+	initContent()
+end)
+
 function initContent()
 	if global.roboports == nil then
 		global.roboports = { }
@@ -19,21 +29,6 @@ function initContent()
 	end
 end
 
-game.on_init(function(event)
-
-	initContent()
-end)
-
-game.on_load(function(event)
-	
-	initContent()
-end)
-
-game.on_event(defines.events.on_player_created, function(event)
-	
-	initContent()
-end)
-
 --[[
 
 global.roboports[string]
@@ -41,7 +36,7 @@ global.roboports[string]
 
 ]]--
 
-game.on_event(defines.events.on_tick, function(event)
+script.on_event(defines.events.on_tick, function(event)
 
 	if event.tick %TICKS == 0 then
 	
