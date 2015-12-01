@@ -23,7 +23,7 @@ function initContent()
 	end
 	
 	for i,player in ipairs(game.players) do
-		if global.roboports[player.name] == nil or global.roboports[player.name] == false then
+		if player.connected and ( global.roboports[player.name] == nil or global.roboports[player.name] == false ) then
 			global.roboports[player.name] = { modules = { } }
 		end
 	end
@@ -42,7 +42,7 @@ script.on_event(defines.events.on_tick, function(event)
 	
 		for i,player in ipairs(game.players) do
 			
-			if player.controller_type == defines.controllers.character then
+			if player.connected and player.controller_type == defines.controllers.character then
 			
 				local playerNetwork = nil
 				local playerCell = nil
